@@ -6,5 +6,12 @@ Make a better Makefile, need to handle building on other systems and building on
 
 []step 1, render a font as tiles. I think I want to use the [BlexMono nerd font](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/IBMPlexMono.zip).
 
+[] Create class for the game engine
+    [] load assets
+    [] initialize
+    [] update game state
+    [] render game state
+    [] handle input
+[] Create entity class
 
 
