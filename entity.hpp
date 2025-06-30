@@ -7,6 +7,7 @@ class Entity {
     int x;
     int y;
     std::string tile;
-    Color color;    
+    Color color;
+    Entity();    
     Entity(int x, int y, std::string tile, Color color);
 };

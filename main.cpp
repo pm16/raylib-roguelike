@@ -1,8 +1,6 @@
 #include "include/raylib.h"
-#include "include/raymath.h"
 #include "game.hpp"
-#include <algorithm>
-#include <string>
+
 
 
 int main() {

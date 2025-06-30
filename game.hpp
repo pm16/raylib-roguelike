@@ -21,7 +21,7 @@ class Game {
     int FONT_SIZE;
     float SCREEN_SCALE;
 
-    Entity player = Entity(4, 4, "@", RAYWHITE);
+    Entity player;
 
     Game();
     void Initialize();

@@ -30,7 +30,7 @@ Game::Game() {
         (GetScreenHeight() - ((float)CANVAS.texture.height * SCREEN_SCALE))*0.5f,
         (float)GetScreenWidth(), (float)GetScreenHeight() };
 
-    
+     player = Entity(4, 4, "@", RAYWHITE);
 }
 
 void Game::Initialize() {
