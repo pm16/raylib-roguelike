@@ -12,6 +12,6 @@ int main() {
         game.HandleInput();        
     }
 
-    game.~Game();
+    //game.~Game(); // this was calling the deconstructor twice.
     return 0;
 }

@@ -1,4 +1,8 @@
 #include "game.hpp"
+#include "include/raymath.h"
+#include <algorithm>
+#include <iostream>
+
 
 Game::Game() {
     WINDOW_WIDTH = 1280;
@@ -12,7 +16,8 @@ Game::Game() {
     SetTargetFPS(60);
     // must run after InitWindow
         
-    FONT = LoadFontEx("./assets/BlexMonoNerdFontMono-Regular.ttf", FONT_SIZE, NULL, 0);
+    FONT = LoadFontEx("./assets/BlexMonoNerdFontMono-Regular.ttf", FONT_SIZE, NULL, 256);
+    //FONT = LoadFontEx("./assets/Unifontexmono.ttf", FONT_SIZE, NULL, 256);
     Vector2 font_dimensions = MeasureTextEx(FONT, "@", FONT_SIZE, 0);
     TILE_DIMENSIONS.x = font_dimensions.x;
     TILE_DIMENSIONS.y = font_dimensions.y;
@@ -30,10 +35,13 @@ Game::Game() {
         (GetScreenHeight() - ((float)CANVAS.texture.height * SCREEN_SCALE))*0.5f,
         (float)GetScreenWidth(), (float)GetScreenHeight() };
 
-     player = Entity(4, 4, "@", RAYWHITE);
+     player = Entity(4, 4, u8"@", RAYWHITE);
+     map = Map();
+     map.Generate(80, 25);
 }
 
 void Game::Initialize() {
+    
     
 }
 
@@ -45,7 +53,28 @@ void Game::Draw() {
     // Draw to scaleable texture
     BeginTextureMode(CANVAS);
         ClearBackground(BLACK);
+        
+        
+        /*for (MapTile tile : map.tiles) {
+            DrawTile(tile);
+        }*/
+        
+        DrawTile(100, 100, "Þ", BLUE);
+
         DrawTile(player);
+
+        //int i = 0;
+        //for (int y = 0; y <=25; y++) {
+         //   for (int x = 0; x <= 80; x++){
+         //       DrawTextCodepoint(FONT, i, (Vector2){(float)x * TILE_DIMENSIONS.x, (float)y*TILE_DIMENSIONS.y}, 20, WHITE);
+         //       i++;
+         //       if (i > 256) {
+         //           break;
+         //       }
+         //   }
+       // }
+       
+        
     EndTextureMode();
     
     // Draw texture to window

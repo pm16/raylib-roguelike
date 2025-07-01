@@ -1,9 +1,8 @@
 #pragma once
 #include "include/raylib.h"
-#include "include/raymath.h"
 #include "entity.hpp"
-#include <algorithm>
 #include <string>
+#include "map.hpp"
 
 class Game {
     public:
@@ -22,6 +21,7 @@ class Game {
     float SCREEN_SCALE;
 
     Entity player;
+    Map map;
 
     Game();
     void Initialize();
