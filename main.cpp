@@ -6,7 +6,7 @@
 int main() {
     Game game;
 
-    while(game.RUNNING) {
+    while(!WindowShouldClose()) {
         
         game.Draw();
         game.HandleInput();        

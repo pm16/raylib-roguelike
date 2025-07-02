@@ -1,17 +1,13 @@
 ## New roguelike game
 Creating a game on my own without a tutorial since I'm having trouble getting libtcod to work with C++.
-Raylib textdrawing doesn't do the unicode characters correctly, so I'm moving to PDCurses using SDL2.
+Raylib textdrawing doesn't do the unicode characters correctly, so I'll need to add some custom files.
 
 ## TODO
 Make a better Makefile, need to handle building on other systems and building on windows
 
 [X]step 1, render a font as tiles. I think I want to use the [BlexMono nerd font](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/IBMPlexMono.zip).
 
-[] Move to PDCurses.
-    [] Place includes and libraries
-    [] Rewrite init
-    [] Rewrite deconstructor
-    [] Rewrite drawing
+[X] Move everything back to raylib.
 [X] Create class for the game engine
     [] load assets
     [] initialize
@@ -39,4 +35,5 @@ Make a better Makefile, need to handle building on other systems and building on
 [] Build on windows
     [] Check window resizing
 [] Enable resizeable window
-    [] Minimum size needs to be set to tilesize * width and height
+    [X] Minimum size needs to be set to tilesize * width and height
+    [] calculate new scale when the screen is resized.
