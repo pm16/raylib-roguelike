@@ -1,13 +1,13 @@
 #pragma once
-#include "include/raylib.h"
 #include <string>
+#include "include/curses.h"
 
 class Entity {
     public:
     int x;
     int y;
     std::string tile;
-    Color color;
+    int color;
     Entity();    
-    Entity(int x, int y, std::string tile, Color color);
+    Entity(int x, int y, std::string tile, int color);
 };

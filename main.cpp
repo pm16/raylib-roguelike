@@ -1,4 +1,4 @@
-#include "include/raylib.h"
+
 #include "game.hpp"
 
 
@@ -6,7 +6,7 @@
 int main() {
     Game game;
 
-    while(!WindowShouldClose()) {
+    while(game.RUNNING) {
         
         game.Draw();
         game.HandleInput();        

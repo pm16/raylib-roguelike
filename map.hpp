@@ -1,6 +1,7 @@
 #pragma once
 #include "entity.hpp"
 #include <vector>
+#include "include/curses.h"
 
 enum MapTileType {
     DARKNESS,
@@ -20,7 +21,7 @@ struct Tile {
 class MapTile: public Entity {
     public:
     MapTileType id;
-    MapTile(int x, int y, MapTileType id, std::string tile, Color color);
+    MapTile(int x, int y, MapTileType id, std::string tile, int color);
 };
 
 class Map {
