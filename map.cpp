@@ -22,7 +22,7 @@ Map::Map() {
 void Map::Generate(int width, int height) {
     for (int columns = 0; columns <= height; columns++) {
             for (int rows = 0; rows <= width; rows++) {
-                tiles.push_back(MapTile{rows, columns, tileset[DARKNESS].id, tileset[DARKNESS].tile, GREEN});
+                tiles.push_back(MapTile{rows, columns, tileset[FLOOR].id, tileset[FLOOR].tile, GREEN});
             }
         }
 }
