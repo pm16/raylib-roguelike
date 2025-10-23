@@ -29,7 +29,7 @@ Game::Game() {
     
    
      map = Map();
-     map.Generate(80, 50);
+     map.Generate(40, 25);
      player = Entity(4, 4, "☺", GREEN);
      
 }
@@ -100,8 +100,6 @@ font_size, 0, entity.color);
 }
 
 Game::~Game() {
-    //MemFree(font.glyphs);
-    //MemFree(font.recs);
     UnloadFont(font);
     UnloadRenderTexture(canvas);
     CloseWindow();    

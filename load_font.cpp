@@ -2,7 +2,6 @@
 
 Font load_font_cp437(std::string font_file, int base_size) {
     Texture2D fontTexture = LoadTexture(font_file.c_str());
-    //Manually create the font
     Font cp437Font;
     cp437Font.texture = fontTexture;
     cp437Font.baseSize = base_size; 
@@ -11,7 +10,6 @@ Font load_font_cp437(std::string font_file, int base_size) {
     cp437Font.glyphs = (GlyphInfo*)MemAlloc(cp437Font.glyphCount * sizeof(GlyphInfo));
     cp437Font.glyphPadding = 0;
 
-    // // Populate glyphs based on your CP437 PNG layout
     for (int i = 0; i < cp437Font.glyphCount; i++) {
         cp437Font.glyphs[i].value = convert_to_unicode(i);
         cp437Font.glyphs[i].offsetX = 0;
@@ -23,9 +21,6 @@ Font load_font_cp437(std::string font_file, int base_size) {
         cp437Font.recs[i].width = base_size;
         cp437Font.recs[i].height = base_size;
     }
-
-    //UnloadTexture(fontTexture);
-
     return cp437Font;
 } 
 
