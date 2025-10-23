@@ -10,9 +10,9 @@ MapTile::MapTile(int x, int y, MapTileType id, std::string tile, Color color) {
 
 Map::Map() {
     tileset.push_back(Tile{DARKNESS, u8" "});
-    tileset.push_back(Tile{GROUND, u8"."});
+    tileset.push_back(Tile{GROUND, u8"█"});
     tileset.push_back(Tile{WALL, u8"#"});
-    tileset.push_back(Tile{FLOOR, u8","});
+    tileset.push_back(Tile{FLOOR, u8"█"});
     tileset.push_back(Tile{DOOR, u8"+"});
     tileset.push_back(Tile{STAIRS_UP, u8"<"});
     tileset.push_back(Tile{STAIRS_DOWN, u8">"});   

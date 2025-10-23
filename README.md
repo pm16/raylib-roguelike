@@ -3,10 +3,11 @@ Creating a game on my own without a tutorial since I'm having trouble getting li
 Raylib textdrawing doesn't do the unicode characters correctly, so I'll need to add some custom files.
 
 ## TODO
-Make a better Makefile, need to handle building on other systems and building on windows
+- [] Make a better Makefile, need to handle building on other systems and building on windows
 
-- [X]step 1, render a font as tiles. I think I want to use the [BlexMono nerd font](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/IBMPlexMono.zip).
-
+- [] step 1, render a font as tiles. I think I want to use the [BlexMono nerd font](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/IBMPlexMono.zip).
+    - [] Maybe use [Alloy Curses 12x12 font from the libtcod tutorial](https://raw.githubusercontent.com/HexDecimal/python-tcod-tutorial-2023/6b69bf9b5531963a0e5f09f9d8fe72a4001d4881/data/Alloy_curses_12x12.png)
+    - [] Figure out how to use the above tilesheet as a font.
 - [X] Move everything back to raylib.
 - [X] Create class for the game engine
     - [] load assets

@@ -16,8 +16,10 @@ Game::Game() {
     tilesWide = 80;
     tilesHigh = 25;
     // Load font
-    font_size = 16;
-    font = LoadFontEx("assets/BlexMonoNerdFontMono-Regular.ttf", font_size, NULL, 0);
+    font_size = 12;
+    int *codepoints = (int *)calloc(256, sizeof(int));
+    //font = LoadFontEx("assets/BlexMonoNerdFontMono-Regular.ttf", font_size, NULL, 0);
+    font = LoadFontEx("assets/Alloy_curses_12x12.png", font_size, codepoints, 256);
     TILE_DIMENSIONS = MeasureTextEx(font, u8"X", font_size, 0);
     canvasWidth = tilesWide * TILE_DIMENSIONS.x;
     canvasHeight = tilesHigh * TILE_DIMENSIONS.y;
@@ -89,9 +91,9 @@ void Game::HandleInput() {
 }
 
 void Game::DrawTile(int x, int y, std::string tile, Color color) {
-    DrawTextEx(font, tile.c_str(), 
+    DrawTextCodepoint(font, 156, 
     (Vector2){(float)x * TILE_DIMENSIONS.x, (float)y * TILE_DIMENSIONS.y}, 
-    font_size, 0, color);
+    font_size, color);
 }
 
 void Game::DrawTile(Entity entity) {
