@@ -15,14 +15,14 @@ const T& getLastElement(const std::unordered_set<T>& s) {
     }
 
     // Advance the iterator
-    // Start at the end of the set
-    auto it = s.end();
+    // Start at the beginning of the set
+    auto it = s.begin();
     
-    auto pv = std::prev(it, 1);
+    std::advance(it, s.size() -1);
 
     // Return the element
     // The dereferenced iterator is the last element
-    return *pv;
+    return *it;
 }
 
 template <typename T>
@@ -68,7 +68,8 @@ Map::Map() {
 void Map::Generate(int width, int height, Vector2 start_position = Vector2Zero()) {
     this->start_position = start_position;
     
-    std::unordered_set<Vector2> floor_positions = run_random_walk();
+    //std::unordered_set<Vector2> floor_positions = run_random_walk();
+    std::unordered_set<Vector2> floor_positions;
     create_corridors(floor_positions);
 
     /*for (Vector2 position : floor_positions) {
