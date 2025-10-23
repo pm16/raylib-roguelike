@@ -1,7 +1,35 @@
 #pragma once
 #include "entity.hpp"
 #include <vector>
+#include <unordered_set>
+#include <time.h>
+#include <iostream>
 #include "include/raylib.h"
+#include "include/raymath.h"
+
+// Function to get a random element from an unordered_set
+template <typename T>
+const T& getRandomElement(const std::unordered_set<T>& s);
+
+
+namespace std {
+    // Specialize the std::hash struct for raylib's Vector2 type
+    template <>
+    struct hash<Vector2> {
+        // The operator() takes a const reference to the type and returns a size_t hash value
+        size_t operator()(const Vector2& vec) const {
+            // Get the standard hash values for the component types (int)
+            size_t h1 = std::hash<int>{}(vec.x);
+            size_t h2 = std::hash<int>{}(vec.y);
+
+            // A simple and effective way to combine two hash values:
+            // XOR the first hash with the second hash left-shifted by 1 bit.
+            // This ensures both components contribute to the final hash.
+            return h1 ^ (h2 << 1);            
+        }
+    };
+}
+
 
 enum MapTileType {
     DARKNESS,
@@ -28,6 +56,10 @@ class Map {
     public:
     std::vector<Tile> tileset;
     std::vector<MapTile> tiles;
+    std::unordered_set<Vector2> run_random_walk(int iterations, int walk_length, bool start_randomly_each_iteration, Vector2 start_position);
+    std::unordered_set<Vector2> simple_random_walk(Vector2 start_position, int walk_length);
+    std::vector<Vector2> direction2d();
+    Vector2 get_random_cardinal_direction(std::vector<Vector2> directions);
     Map();
     void Generate(int width, int height);
 
