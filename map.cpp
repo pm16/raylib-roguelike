@@ -35,31 +35,27 @@ Map::Map() {
     tileset.push_back(Tile{FLOOR, "."});
     tileset.push_back(Tile{DOOR, "+"});
     tileset.push_back(Tile{STAIRS_UP, "<"});
-    tileset.push_back(Tile{STAIRS_DOWN, ">"});   
+    tileset.push_back(Tile{STAIRS_DOWN, ">"});
+    
+    //start_position = Vector2Zero();
+    iterations = 100;
+    walk_length = 100;
+    start_randomly_each_iteration = true;
 
 }
 
-void Map::Generate(int width, int height) {
-    /*for (int columns = 0; columns <= height; columns++) {
-            for (int rows = 0; rows <= width; rows++) {
-                tiles.push_back(MapTile{rows, columns, tileset[FLOOR].id, tileset[FLOOR].tile, GRAY});
-            }
-        }
-    */
-
-    Vector2 start_position = Vector2Zero();
-    int iterations = 10;
-    int walk_length = 10;
-    bool start_randomly_each_iteration = true;
-
-    std::unordered_set<Vector2> floor_positions = run_random_walk(iterations, walk_length, start_randomly_each_iteration, start_position);
+void Map::Generate(int width, int height, Vector2 start_position = Vector2Zero()) {
+    this->start_position = start_position;
+    
+    std::unordered_set<Vector2> floor_positions = run_random_walk();
     for (Vector2 position : floor_positions) {
         std::cout << position.x << ", " << position.y << std::endl;
         tiles.push_back(MapTile{(int)position.x, (int)position.y, tileset[FLOOR].id, tileset[FLOOR].tile, GRAY});
     }
+    create_walls(floor_positions);
 }
 
-std::unordered_set<Vector2> Map::run_random_walk(int iterations, int walk_length, bool start_randomly_each_iteration, Vector2 start_position) {
+std::unordered_set<Vector2> Map::run_random_walk() {
     Vector2 current_position = start_position;
     std::unordered_set<Vector2> floor_positions;
 
@@ -103,6 +99,27 @@ std::vector<Vector2> Map::direction2d() {
 
 Vector2 Map::get_random_cardinal_direction(std::vector<Vector2> directions) {
     return directions[rand() % directions.size()];
+}
+
+void Map::create_walls(std::unordered_set<Vector2> floor_positions) {
+    std::unordered_set<Vector2> basic_wall_positions = find_walls_in_directions(floor_positions);
+    for (Vector2 position : basic_wall_positions) {
+        tiles.push_back(MapTile{(int)position.x, (int)position.y, tileset[WALL].id, tileset[WALL].tile, GRAY});
+    }
+}
+
+std::unordered_set<Vector2> Map::find_walls_in_directions(std::unordered_set<Vector2> floor_positions) {
+    std::vector<Vector2> direction_list = direction2d();
+    std::unordered_set<Vector2> wall_positions;
+    for (Vector2 position : floor_positions) {
+        for (Vector2 direction : direction_list) {
+            Vector2 neighbor_position = position + direction;
+            if(floor_positions.find(neighbor_position) == floor_positions.end()) {
+                wall_positions.insert(neighbor_position);
+            }
+        }
+    }
+    return wall_positions;
 }
 
 Map::~Map() {

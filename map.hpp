@@ -54,14 +54,22 @@ class MapTile: public Entity {
 
 class Map {
     public:
+    Vector2 start_position;
+    int iterations;
+    int walk_length;
+    bool start_randomly_each_iteration;
+    
     std::vector<Tile> tileset;
     std::vector<MapTile> tiles;
-    std::unordered_set<Vector2> run_random_walk(int iterations, int walk_length, bool start_randomly_each_iteration, Vector2 start_position);
+    
+    std::unordered_set<Vector2> run_random_walk();
     std::unordered_set<Vector2> simple_random_walk(Vector2 start_position, int walk_length);
     std::vector<Vector2> direction2d();
     Vector2 get_random_cardinal_direction(std::vector<Vector2> directions);
+    void create_walls(std::unordered_set<Vector2> floor_positions);
+    std::unordered_set<Vector2> find_walls_in_directions(std::unordered_set<Vector2> floor_positions);
     Map();
-    void Generate(int width, int height);
+    void Generate(int width, int height, Vector2 start_position);
 
     ~Map();
 };

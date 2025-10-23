@@ -29,8 +29,8 @@ Game::Game() {
     
    
      map = Map();
-     map.Generate(40, 25);
-     player = Entity(4, 4, "☺", GREEN);
+     map.Generate(40, 25, (Vector2){(float)40 / 2, (float)25 / 2});
+     player = Entity(40 / 2, 25 / 2, "☺", GREEN);
      
 }
 
