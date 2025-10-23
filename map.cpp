@@ -23,7 +23,7 @@ const T& getRandomElement(const std::unordered_set<T>& s) {
     // Use std::advance to efficiently move the iterator to the random position
     std::advance(it, random_index);
 
-    // 6. Return the element
+    // Return the element
     // The dereferenced iterator is the random element
     return *it;
 }
@@ -80,7 +80,10 @@ std::unordered_set<Vector2> Map::simple_random_walk(Vector2 start_position, int 
     Vector2 previous_position = start_position;
 
     for (int i = 0; i < walk_length; i++) {
-        Vector2 new_position = Vector2Add(previous_position, get_random_cardinal_direction(direction2d()));
+        Vector2 new_position = Vector2{-1,-1};
+        while (new_position.x < 0 || new_position.y < 0) {
+            new_position = Vector2Add(previous_position, get_random_cardinal_direction(direction2d()));
+        }        
         path.insert(new_position);
         previous_position=new_position; 
     }
