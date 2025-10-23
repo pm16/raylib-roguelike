@@ -3,6 +3,7 @@
 #include "entity.hpp"
 #include <string>
 #include "map.hpp"
+#include "load_font.hpp"
 
 class Game {
     public:

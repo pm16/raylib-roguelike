@@ -1,7 +1,6 @@
 #include "game.hpp"
 #include <algorithm>
 
-
 Game::Game() {
     /* Initialize raylib*/
     
@@ -16,11 +15,9 @@ Game::Game() {
     tilesWide = 80;
     tilesHigh = 25;
     // Load font
-    font_size = 12;
-    int *codepoints = (int *)calloc(256, sizeof(int));
-    //font = LoadFontEx("assets/BlexMonoNerdFontMono-Regular.ttf", font_size, NULL, 0);
-    font = LoadFontEx("assets/Alloy_curses_12x12.png", font_size, codepoints, 256);
-    TILE_DIMENSIONS = MeasureTextEx(font, u8"X", font_size, 0);
+    font_size = 24;
+    font = load_font_cp437("assets/Alloy_curses_12x12.png", 12);
+    TILE_DIMENSIONS = MeasureTextEx(font, "X", font_size, 0);
     canvasWidth = tilesWide * TILE_DIMENSIONS.x;
     canvasHeight = tilesHigh * TILE_DIMENSIONS.y;
     SetWindowMinSize(canvasWidth, canvasHeight);
@@ -31,10 +28,10 @@ Game::Game() {
     scale = std::min((float)GetScreenWidth()/canvasWidth, (float)GetScreenHeight()/canvasHeight);
     
    
-    
-     player = Entity(4, 4, u8"@", WHITE);
      map = Map();
      map.Generate(80, 25);
+     player = Entity(4, 4, "☺", GREEN);
+     
 }
 
 void Game::Initialize() {
@@ -91,9 +88,9 @@ void Game::HandleInput() {
 }
 
 void Game::DrawTile(int x, int y, std::string tile, Color color) {
-    DrawTextCodepoint(font, 156, 
+    DrawTextEx(font, tile.c_str(), 
     (Vector2){(float)x * TILE_DIMENSIONS.x, (float)y * TILE_DIMENSIONS.y}, 
-    font_size, color);
+    font_size, 0, color);
 }
 
 void Game::DrawTile(Entity entity) {
@@ -103,6 +100,8 @@ font_size, 0, entity.color);
 }
 
 Game::~Game() {
+    //MemFree(font.glyphs);
+    //MemFree(font.recs);
     UnloadFont(font);
     UnloadRenderTexture(canvas);
     CloseWindow();    
