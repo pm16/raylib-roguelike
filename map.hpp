@@ -11,6 +11,9 @@
 template <typename T>
 const T& getRandomElement(const std::unordered_set<T>& s);
 
+// Function to get the last element from an unordered_set
+template <typename T>
+const T& getLastElement(const std::unordered_set<T>& s);
 
 namespace std {
     // Specialize the std::hash struct for raylib's Vector2 type
@@ -58,16 +61,21 @@ class Map {
     int iterations;
     int walk_length;
     bool start_randomly_each_iteration;
+    int corridor_length;
+    int corridor_count;
+    float room_percent;
     
     std::vector<Tile> tileset;
     std::vector<MapTile> tiles;
     
+    void create_corridors(std::unordered_set<Vector2> floor_positions);
     std::unordered_set<Vector2> run_random_walk();
     std::unordered_set<Vector2> simple_random_walk(Vector2 start_position, int walk_length);
     std::vector<Vector2> direction2d();
     Vector2 get_random_cardinal_direction(std::vector<Vector2> directions);
     void create_walls(std::unordered_set<Vector2> floor_positions);
     std::unordered_set<Vector2> find_walls_in_directions(std::unordered_set<Vector2> floor_positions);
+    std::unordered_set<Vector2> random_walk_corridor(Vector2 start_position, int corridor_length);
     Map();
     void Generate(int width, int height, Vector2 start_position);
 

@@ -8,6 +8,24 @@ MapTile::MapTile(int x, int y, MapTileType id, std::string tile, Color color) {
     this->color = color;
 }
 template <typename T>
+const T& getLastElement(const std::unordered_set<T>& s) {
+    // Check if the set is empty (crucial to avoid crashes)
+    if (s.empty()) {
+        throw std::runtime_error("Cannot select a random element from an empty set.");
+    }
+
+    // Advance the iterator
+    // Start at the end of the set
+    auto it = s.end();
+    
+    auto pv = std::prev(it, 1);
+
+    // Return the element
+    // The dereferenced iterator is the last element
+    return *pv;
+}
+
+template <typename T>
 const T& getRandomElement(const std::unordered_set<T>& s) {
     // Check if the set is empty (crucial to avoid crashes)
     if (s.empty()) {
@@ -41,6 +59,9 @@ Map::Map() {
     iterations = 100;
     walk_length = 100;
     start_randomly_each_iteration = true;
+    corridor_length = 14;
+    corridor_count = 5;
+    room_percent = 0.8;
 
 }
 
@@ -48,11 +69,24 @@ void Map::Generate(int width, int height, Vector2 start_position = Vector2Zero()
     this->start_position = start_position;
     
     std::unordered_set<Vector2> floor_positions = run_random_walk();
-    for (Vector2 position : floor_positions) {
+    create_corridors(floor_positions);
+
+    /*for (Vector2 position : floor_positions) {
         std::cout << position.x << ", " << position.y << std::endl;
         tiles.push_back(MapTile{(int)position.x, (int)position.y, tileset[FLOOR].id, tileset[FLOOR].tile, GRAY});
-    }
+    }*/
     create_walls(floor_positions);
+}
+
+
+void Map::create_corridors(std::unordered_set<Vector2> floor_positions) {
+    Vector2 current_position = this->start_position;
+
+    for (int i = 0; i < corridor_count; i++) {
+        std::unordered_set<Vector2> corridor = random_walk_corridor(current_position, corridor_length);
+        current_position = getLastElement(corridor);
+        floor_positions.merge(corridor);
+    }
 }
 
 std::unordered_set<Vector2> Map::run_random_walk() {
@@ -121,6 +155,18 @@ std::unordered_set<Vector2> Map::find_walls_in_directions(std::unordered_set<Vec
     }
     return wall_positions;
 }
+
+std::unordered_set<Vector2> Map::random_walk_corridor(Vector2 start_position, int corridor_length) {
+    std::unordered_set<Vector2> corridor;
+    Vector2 direction = get_random_cardinal_direction(direction2d());
+    Vector2 current_position = start_position;
+    corridor.insert(current_position);
+    for (int i = 0; i < corridor_length; i++) {
+        current_position = Vector2Add(current_position, direction);
+        corridor.insert(current_position);        
+    }
+    return corridor;
+} 
 
 Map::~Map() {
 
