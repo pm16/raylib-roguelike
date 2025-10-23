@@ -13,7 +13,7 @@ Game::Game() {
     InitWindow(windowWidth, windowHeight, title.c_str());
     
     tilesWide = 80;
-    tilesHigh = 25;
+    tilesHigh = 50;
     // Load font
     font_size = 24;
     font = load_font_cp437("assets/Alloy_curses_12x12.png", 12);
@@ -29,7 +29,7 @@ Game::Game() {
     
    
      map = Map();
-     map.Generate(80, 25);
+     map.Generate(80, 50);
      player = Entity(4, 4, "☺", GREEN);
      
 }

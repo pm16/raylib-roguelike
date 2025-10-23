@@ -1,11 +1,19 @@
 ## New roguelike game
 Creating a game on my own without a tutorial since I'm having trouble getting libtcod to work with C++.
-Raylib textdrawing doesn't do the unicode characters correctly, so I'll need to add some custom files.
+Raylib textdrawing doesn't do the unicode characters correctly, so I'll need to add some custom files. 
+Using [Raylib](https://github.com/raysan5/raylib) to create a rogue-like game.
+
+## Build instructions (Linux)
+01. Follow the [Raylib](https://github.com/raysan5/raylib) build instructions for your distro to install the dependencies.
+02. Clone this repo and enter its directory.
+03. ```mkdir build```
+04. ```make game```
+05. ```./build/game```
 
 ## TODO
 - [] Make a better Makefile, need to handle building on other systems and building on windows
 
-- [X] step 1, render a font as tiles. I think I want to use the [BlexMono nerd font](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/IBMPlexMono.zip).
+- [X] step 1, render a font as tiles.
     - [X] Maybe use [Alloy Curses 12x12 font from the libtcod tutorial](https://raw.githubusercontent.com/HexDecimal/python-tcod-tutorial-2023/6b69bf9b5531963a0e5f09f9d8fe72a4001d4881/data/Alloy_curses_12x12.png)
     - [X] Figure out how to use the above tilesheet as a font.
     - [X] downloaded [PerfectDOSVGA437.ttf](https://cp437.github.io/) to use with loadfontex and the codepoint example. -- does not work as intended --
