@@ -87,7 +87,7 @@ void Dungeon::setTile(int x, int y, const char* tile) {
 }
 
 bool Dungeon::createFeature() {
-    for (int i = 0; i < 1000; i++) {
+    for (int i = 0; i < _exits.size(); i++) {
         if (_exits.empty()) {
             break;
         }
@@ -152,8 +152,8 @@ bool Dungeon::createFeature(int x, int y, Direction dir) {
 }
 
 bool Dungeon::makeRoom(int x, int y, Direction dir, bool firstRoom) {
-    static const int minRoomSize = 2;
-    static const int maxRoomSize = 15;
+    static const int minRoomSize = 4;
+    static const int maxRoomSize = randomInt(minRoomSize, std::min(_width, _height));
 
     Rect room;
     room.width = randomInt(minRoomSize, maxRoomSize);
@@ -197,8 +197,8 @@ bool Dungeon::makeRoom(int x, int y, Direction dir, bool firstRoom) {
  }
 
  bool Dungeon::makeCorridor(int x, int y, Direction dir) {
-    static const int minCorridorLength = 2;
-    static const int maxCorridorLength = 12;
+    static const int minCorridorLength = 1;
+    static const int maxCorridorLength = randomInt(minCorridorLength, std::min(_width, _height));
 
     Rect corridor;
     corridor.x = x;
@@ -315,6 +315,5 @@ bool Dungeon::makeRoom(int x, int y, Direction dir, bool firstRoom) {
  }
 
  MapTile Dungeon::getTile(Vector2 position) {
-    MapTile tile = getTile(position.x, position.y);
-    return tile;
+    return getTile(position.x, position.y);
  }
