@@ -109,7 +109,7 @@ bool Dungeon::createFeature() {
 }
 
 bool Dungeon::createFeature(int x, int y, Direction dir) {
-    static const int roomChance = 50; // corridorChance = 100 - roomChance
+    static const int roomChance = 70; // corridorChance = 100 - roomChance
 
     int dx = 0;
     int dy = 0;
@@ -153,7 +153,7 @@ bool Dungeon::createFeature(int x, int y, Direction dir) {
 
 bool Dungeon::makeRoom(int x, int y, Direction dir, bool firstRoom) {
     static const int minRoomSize = 3;
-    static const int maxRoomSize = 6;
+    static const int maxRoomSize = 15;
 
     Rect room;
     room.width = randomInt(minRoomSize, maxRoomSize);
