@@ -33,6 +33,12 @@ Game::Game() {
      
      dungeon.generate(10);
      player = Entity(40 / 2, 25 / 2, "☺", GREEN);
+    for (MapTile tile : dungeon.getMap()) {
+        if (tile.tile == "<") {
+            player.x = tile.x;
+            player.y = tile.y;
+        }
+    }
      
 }
 
@@ -71,6 +77,7 @@ void Game::Draw() {
 }
 
 void Game::HandleInput() {
+  
     if (IsKeyPressed(KEY_UP)) {
         player.y -= 1;        
     }
@@ -86,7 +93,6 @@ void Game::HandleInput() {
     if (IsKeyPressed(KEY_RIGHT)) {
         player.x += 1;
     }
-
 }
 
 void Game::DrawTile(int x, int y, std::string tile, Color color) {
