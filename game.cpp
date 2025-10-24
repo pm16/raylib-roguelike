@@ -27,16 +27,13 @@ Game::Game() {
     SetTargetFPS(60);                   // Set our game to run at 60 frames-per-second
     scale = std::min((float)GetScreenWidth()/canvasWidth, (float)GetScreenHeight()/canvasHeight);
     
-   
-     map = Map();
-     //map.Generate(40, 25, (Vector2){(float)40 / 2, (float)25 / 2});
-     
+          
      dungeon.generate(10);
      player = Entity(40 / 2, 25 / 2, "☺", GREEN);
     for (MapTile tile : dungeon.getMap()) {
         if (tile.tile == "<") {
-            player.x = tile.x;
-            player.y = tile.y;
+            player.x = tile.position.x;
+            player.y = tile.position.y;
         }
     }
      
@@ -57,7 +54,7 @@ void Game::Draw() {
 
             
         for (MapTile tile : dungeon.getMap()) {
-        DrawTile(tile);
+        DrawTile(tile.position.x, tile.position.y, tile.tile.c_str(), tile.color);
     }
 
         DrawTile(player); 

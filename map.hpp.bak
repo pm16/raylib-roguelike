@@ -34,7 +34,21 @@ namespace std {
     };
 }
 
-enum MapTileType {
+/*
+TODO: 
+01. Make a map tile struct with the following properties:
+    - bool explored
+    - bool passable
+    - bool opaque
+    - std::string id
+    - std::string tile
+    - Vector2 position
+    - Color color
+
+*/
+
+
+/*enum MapTileType {
     DARKNESS,
     GROUND,
     WALL,
@@ -42,18 +56,18 @@ enum MapTileType {
     DOOR,
     STAIRS_UP,
     STAIRS_DOWN    
-};
+};*/
 
-struct Tile {
+/*struct Tile {
     MapTileType id;
     std::string tile;
-};
+};*/
 
-class MapTile: public Entity {
+/*class MapTile: public Entity {
     public:
     MapTileType id;
     MapTile(int x, int y, MapTileType id, std::string tile, Color color);
-};
+};*/
 
 class Map {
     public:
@@ -65,7 +79,7 @@ class Map {
     int corridor_count;
     float room_percent;
     
-    std::vector<Tile> tileset;
+    //std::vector<Tile> tileset;
     std::vector<MapTile> tiles;
     
     void create_corridors(std::unordered_set<Vector2> floor_positions);

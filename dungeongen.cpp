@@ -35,30 +35,30 @@ void Dungeon::generate(int maxFeatures) {
         }
     }
 
-    if (!placeObject(UpStairs)) {
+    if (!placeObject("UpStairs")) {
         std::cout << "Unable to place up stairs.\n";
         return;
     }
 
-    if (!placeObject(DownStairs)) {
+    if (!placeObject("DownStairs")) {
         std::cout << "Unable to place down stairs.\n";
         return;
     }
 
-    for (char& tile : _tiles) {
-        if (tile == Unused) {
-            tile = '.';
+    /*for (MapTile tile : _tiles) {
+        if (tile.id == "Unused") {
+            tile = ".";
         }
-        else if (tile == Floor || tile == Corridor) {
-            tile = ' ';
+        else if (tile.id == "Floor" || tile.id == "Corridor") {
+            tile = " ";
         }
-    }
+    }*/
 }
 
 void Dungeon::print() {
     for (int y = 0; y < _height; y++) {
         for (int x = 0; x < _width; x++) {
-            std::cout << getTile(x, y);            
+            std::cout << getTile(x, y).tile;            
         }
         std::cout << std::endl;
     }
@@ -68,22 +68,22 @@ std::vector<MapTile> Dungeon::getMap(){
     std::vector<MapTile> mapTiles;
     for (int y = 0; y < _height; y++) {
         for (int x = 0; x < _width; x++) {
-            mapTiles.push_back(MapTile{x, y, DARKNESS, std::string(1,getTile(x, y)), RAYWHITE});
+            mapTiles.push_back(getTile(x, y));
         }
     }
     return mapTiles;
 }
     
 
-char Dungeon::getTile(int x, int y) const {
+MapTile Dungeon::getTile(int x, int y) const {
     if (x < 0 || y < 0 || x >= _width || y >= _height) {
-        return Unused;
+        return MapTile{"Unused", Vector2{(float)x, (float)y}, RAYWHITE};
     }
     return _tiles[x + y * _width];
 }
 
-void Dungeon::setTile(int x, int y, char tile) {
-    _tiles[x + y * _width] = tile;
+void Dungeon::setTile(int x, int y, const char* tile) {
+    _tiles[x + y * _width] = MapTile{tile, Vector2{(float)x, (float)y}, RAYWHITE};
 }
 
 bool Dungeon::createFeature() {
@@ -127,23 +127,23 @@ bool Dungeon::createFeature(int x, int y, Direction dir) {
         dx = -1;
     }
 
-    if (getTile(x + dx, y + dy) != Floor && getTile(x + dx, y + dy) != Corridor) {
+    if (getTile(x + dx, y + dy).id != "Floor" && getTile(x + dx, y + dy).id != "Corridor") {
         return false;        
     }
 
     if (randomInt(100) < roomChance) {
         if (makeRoom(x, y, dir)) {
-            setTile(x, y, ClosedDoor);
+            setTile(x, y, "ClosedDoor");
             return true;
         }
     }
     else {
         if (makeCorridor(x, y, dir)) {
-            if (getTile(x + dx, y + dy) == Floor) {
-                setTile(x, y, ClosedDoor);
+            if (getTile(x + dx, y + dy).id == "Floor") {
+                setTile(x, y, "ClosedDoor");
             }
             else { //don't place a door between corridors 
-                setTile(x, y, Corridor);
+                setTile(x, y, "Corridor");
             }
             return true;
         }
@@ -176,7 +176,7 @@ bool Dungeon::makeRoom(int x, int y, Direction dir, bool firstRoom) {
         room.y = y - room.height /2;
     }
 
-    if (placeRect(room, Floor)) {
+    if (placeRect(room, "Floor")) {
         _rooms.emplace_back(room);
 
         if (dir != South || firstRoom) { // north side
@@ -253,7 +253,7 @@ bool Dungeon::makeRoom(int x, int y, Direction dir, bool firstRoom) {
             }
         }
     }
-    if (placeRect(corridor, Corridor)) {
+    if (placeRect(corridor, "Corridor")) {
         if (dir != South && corridor.width != 1) { // north side
             _exits.emplace_back(Rect{ corridor.x, corridor.y - 1, corridor.width, 1});    
         }
@@ -271,13 +271,13 @@ bool Dungeon::makeRoom(int x, int y, Direction dir, bool firstRoom) {
     return false;
  }
 
- bool Dungeon::placeRect(const Rect& rect, char tile) {
+ bool Dungeon::placeRect(const Rect& rect, const char* tile) {
     if (rect.x < 1 || rect.y < 1 || rect.x + rect.width > _width - 1 || rect.y + rect.height > _height - 1) {
         return false;
     }
     for (int y = rect.y; y < rect.y + rect.height; y++) {
         for (int x = rect.x; x < rect.x + rect.width; x++) {
-            if (getTile(x, y) != Unused) {
+            if (getTile(x, y).id != "Unused") {
                 return false; // area is already used
             }
         }
@@ -286,7 +286,7 @@ bool Dungeon::makeRoom(int x, int y, Direction dir, bool firstRoom) {
     for (int y = rect.y -1; y < rect.y + rect.height + 1; y++) {
         for (int x = rect.x - 1; x < rect.x + rect.width + 1; x++) {
             if (x == rect.x -1 || y == rect.y -1 ||x == rect.x + rect.width || y == rect.y + rect.height) {
-                setTile(x, y, Wall);
+                setTile(x, y, "Wall");
             }
             else {
                 setTile(x, y, tile);
@@ -296,7 +296,7 @@ bool Dungeon::makeRoom(int x, int y, Direction dir, bool firstRoom) {
     return true;
  }
 
- bool Dungeon::placeObject(char tile) {
+ bool Dungeon::placeObject(const char* tile) {
     if (_rooms.empty()) {
         return false;
     }
@@ -305,7 +305,7 @@ bool Dungeon::makeRoom(int x, int y, Direction dir, bool firstRoom) {
     int x = randomInt(_rooms[r].x + 1, _rooms[r].x + _rooms[r].width -2);
     int y = randomInt(_rooms[r].y + 1, _rooms[r].y + _rooms[r].height -2);
 
-    if (getTile(x, y) == Floor) {
+    if (getTile(x, y).id == "Floor") {
         setTile(x, y, tile);
         // place one object in one room (optional)
         _rooms.erase(_rooms.begin() + r);

@@ -7,7 +7,7 @@ int main() {
     Game game;
 
     while(!WindowShouldClose()) {
-        
+        game.Update();
         game.Draw();
         game.HandleInput();        
     }

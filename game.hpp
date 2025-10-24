@@ -2,7 +2,6 @@
 #include "include/raylib.h"
 #include "entity.hpp"
 #include <string>
-#include "map.hpp"
 #include "load_font.hpp"
 #include "dungeongen.hpp"
 
@@ -28,7 +27,6 @@ class Game {
     std::string title;
 
     Entity player;
-    Map map;
     Dungeon dungeon = Dungeon(50,50);
 
     Game();
