@@ -313,3 +313,8 @@ bool Dungeon::makeRoom(int x, int y, Direction dir, bool firstRoom) {
     }
     return false;
  }
+
+ MapTile Dungeon::getTile(Vector2 position) {
+    MapTile tile = getTile(position.x, position.y);
+    return tile;
+ }

@@ -21,15 +21,15 @@ struct MapTile {
     Color color;
     std::map<std::string, std::string> Tile {
         {"Unused", " "},
-        {"Floor",  "."},
-        {"Corridor", ","},
+        {"Floor",  " "},
+        {"Corridor", " "},
         {"Wall", "█"},
         {"ClosedDoor", "+"},
         {"OpenDoor", "-"},
         {"UpStairs","<"},
         {"DownStairs", ">"}
     };
-    
+
     MapTile(std::string id, Vector2 position, Color color) {
         this->id = id;
         this->tile = Tile[id.c_str()];
@@ -66,7 +66,7 @@ struct MapTile {
             this->passable = true;
             this->opaque = false;            
         }
-        else if (this->id == "Upstairs") {
+        else if (this->id == "UpStairs") {
             this->explored = false;
             this->passable = true;
             this->opaque = false;            
@@ -107,6 +107,7 @@ class Dungeon {
     void generate(int maxFeatures);
     void print();
     std::vector<MapTile> getMap();
+    MapTile getTile(Vector2 position);
 
     private:
     MapTile getTile(int x, int y) const;

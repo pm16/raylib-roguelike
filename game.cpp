@@ -1,5 +1,6 @@
 #include "game.hpp"
 #include <algorithm>
+#include "include/raymath.h"
 
 Game::Game() {
     /* Initialize raylib*/
@@ -74,7 +75,9 @@ void Game::Draw() {
 }
 
 void Game::HandleInput() {
-  
+    
+    Vector2 previous = {(float)player.x, (float)player.y};
+
     if (IsKeyPressed(KEY_UP)) {
         player.y -= 1;        
     }
@@ -90,6 +93,11 @@ void Game::HandleInput() {
     if (IsKeyPressed(KEY_RIGHT)) {
         player.x += 1;
     }
+
+    if (!dungeon.getTile(Vector2{(float)player.x, (float)player.y}).passable) {
+        player.x = previous.x;
+        player.y = previous.y;
+    }  
 }
 
 void Game::DrawTile(int x, int y, std::string tile, Color color) {
