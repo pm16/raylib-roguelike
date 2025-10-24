@@ -118,6 +118,4 @@ class Dungeon {
     bool makeCorridor(int x, int y, Direction dir);
     bool placeRect(const Rect& rect, const char* tile);
     bool placeObject(const char* tile);
-
-
 };

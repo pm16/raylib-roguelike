@@ -152,7 +152,7 @@ bool Dungeon::createFeature(int x, int y, Direction dir) {
 }
 
 bool Dungeon::makeRoom(int x, int y, Direction dir, bool firstRoom) {
-    static const int minRoomSize = 3;
+    static const int minRoomSize = 2;
     static const int maxRoomSize = 15;
 
     Rect room;
@@ -197,8 +197,8 @@ bool Dungeon::makeRoom(int x, int y, Direction dir, bool firstRoom) {
  }
 
  bool Dungeon::makeCorridor(int x, int y, Direction dir) {
-    static const int minCorridorLength = 3;
-    static const int maxCorridorLength = 6;
+    static const int minCorridorLength = 2;
+    static const int maxCorridorLength = 12;
 
     Rect corridor;
     corridor.x = x;

@@ -27,7 +27,7 @@ class Game {
     std::string title;
 
     Entity player;
-    Dungeon dungeon = Dungeon(50,50);
+    Dungeon dungeon = Dungeon(80,50);
 
     Game();
     void Initialize();
