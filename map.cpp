@@ -49,7 +49,7 @@ const T& getRandomElement(const std::unordered_set<T>& s) {
 Map::Map() {
     tileset.push_back(Tile{DARKNESS, " "});
     tileset.push_back(Tile{GROUND, ","});
-    tileset.push_back(Tile{WALL, "█"});
+    tileset.push_back(Tile{WALL, "#"});
     tileset.push_back(Tile{FLOOR, "."});
     tileset.push_back(Tile{DOOR, "+"});
     tileset.push_back(Tile{STAIRS_UP, "<"});

@@ -4,6 +4,7 @@
 #include <string>
 #include "map.hpp"
 #include "load_font.hpp"
+#include "dungeongen.hpp"
 
 class Game {
     public:
@@ -28,6 +29,7 @@ class Game {
 
     Entity player;
     Map map;
+    Dungeon dungeon = Dungeon(50,50);
 
     Game();
     void Initialize();

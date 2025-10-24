@@ -34,7 +34,6 @@ namespace std {
     };
 }
 
-
 enum MapTileType {
     DARKNESS,
     GROUND,

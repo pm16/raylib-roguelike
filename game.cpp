@@ -29,7 +29,9 @@ Game::Game() {
     
    
      map = Map();
-     map.Generate(40, 25, (Vector2){(float)40 / 2, (float)25 / 2});
+     //map.Generate(40, 25, (Vector2){(float)40 / 2, (float)25 / 2});
+     
+     dungeon.generate(10);
      player = Entity(40 / 2, 25 / 2, "☺", GREEN);
      
 }
@@ -48,7 +50,7 @@ void Game::Draw() {
         ClearBackground(BLACK);  // Clear render texture background color
 
             
-        for (MapTile tile : map.tiles) {
+        for (MapTile tile : dungeon.getMap()) {
         DrawTile(tile);
     }
 
