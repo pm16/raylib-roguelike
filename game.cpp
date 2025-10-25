@@ -30,8 +30,8 @@ Game::Game() {
     
           
      dungeon.generate(std::rand() % 100 + 10);
-     player = Entity("SmileyFace", Vector2{0,0}, GREEN);
-    for (Entity tile : dungeon.getMap()) {
+     player = MapTile("SmileyFace", Vector2{0,0}, GREEN);
+    for (MapTile tile : dungeon.getMap()) {
         if (tile.tile == "<") {
             player.position = tile.position;
         }
@@ -53,7 +53,7 @@ void Game::Draw() {
         ClearBackground(BLACK);  // Clear render texture background color
 
             
-        for (Entity tile : dungeon.getMap()) {
+        for (MapTile tile : dungeon.getMap()) {
         DrawTile(tile);
     }
 
@@ -104,7 +104,7 @@ void Game::DrawTile(int x, int y, std::string tile, Color color) {
     font_size, 0, color);
 }
 
-void Game::DrawTile(Entity entity) {
+void Game::DrawTile(MapTile entity) {
 DrawTextEx(font, entity.tile.c_str(), 
 (Vector2){(float)entity.position.x * TILE_DIMENSIONS.x, (float)entity.position.y * TILE_DIMENSIONS.y}, 
 font_size, 0, entity.color);

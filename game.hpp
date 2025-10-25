@@ -1,6 +1,5 @@
 #pragma once
 #include "include/raylib.h"
-#include "entity.hpp"
 #include <string>
 #include "load_font.hpp"
 #include "dungeongen.hpp"
@@ -26,7 +25,7 @@ class Game {
     
     std::string title;
 
-    Entity player;
+    MapTile player;
     Dungeon dungeon = Dungeon(80,50);
 
     Game();
@@ -35,6 +34,6 @@ class Game {
     void Draw();
     void HandleInput();
     void DrawTile(int x, int y , std::string tile, Color color);
-    void DrawTile(Entity entity);
+    void DrawTile(MapTile entity);
     ~Game();
 };
