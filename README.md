@@ -24,7 +24,12 @@ Using [Raylib](https://github.com/raysan5/raylib) to create a rogue-like game.
     - [] update game state
     - [] render game state
     - [] handle input
+        - [ ] Abstract input so it can be used with a 6 button controller. Use the menuing system for interactions.
 - [X] Create entity class
+    - [ ] NPCs
+    - [ ] Monsters
+    - [ ] Items
+    - [ ] Interactable tiles
 - [] Create state machine
     - [] Move input handling to its associated state
     - [] Move draing to its associated state
@@ -38,9 +43,15 @@ Using [Raylib](https://github.com/raysan5/raylib) to create a rogue-like game.
     - [] Custom tilesets or fonts?
 - [] Add log to the UI
 - [] Add a menu system
+    - [ ] Use menu system for interaction.
 - [] Display some stats on the UI
 - [] Map class
-- [] Map generator
+- [ ] Map generator
+    - [X] Basic map generator
+        - [ ] Ensure all rooms are reachable
+        - [ ] Ensure there is a path from the up stairs to the down stairs
+    - [ ] Cave generator
+    - [ ] Town generator
 - [] Add saving and loading
 - [] Build on windows
     - [] Check window resizing
