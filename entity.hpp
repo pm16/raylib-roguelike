@@ -14,7 +14,7 @@ class MapTile {
     Color color;
     
     MapTile();
-    MapTile(std::string id, Vector2 position, Color color);
+    MapTile(const char* id, Vector2 position, Color color);
     
     std::string getTile();
 

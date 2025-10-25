@@ -1,8 +1,8 @@
 #include "entity.hpp"
 
-MapTile::MapTile(std::string id, Vector2 position, Color color) {
+MapTile::MapTile(const char* id, Vector2 position, Color color) {
     this->id = id;
-    this->tile = Tile[id.c_str()];
+    this->tile = Tile[this->id];
     this->position = position;
     this->color = color;
     setFlags();              
