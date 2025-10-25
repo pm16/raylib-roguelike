@@ -13,3 +13,4 @@ Entity::Entity(int x, int y, std::string tile, Color color) {
         this->tile = tile;
         this->color = color;
 }
+
