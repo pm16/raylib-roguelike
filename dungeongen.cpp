@@ -21,6 +21,7 @@ namespace {
 }
 
 void Dungeon::generate(int maxFeatures) {
+   
     // place the first room in the center
     if (!makeRoom(_width / 2, _height / 2, static_cast<Direction>(randomInt(4), true))) {
         std::cout << "Unable to place the first room.\n";
@@ -87,7 +88,7 @@ void Dungeon::setTile(int x, int y, const char* tile) {
 }
 
 bool Dungeon::createFeature() {
-    for (int i = 0; i < _exits.size(); i++) {
+    for (int i = 0; i < _width * _height; i++) {
         if (_exits.empty()) {
             break;
         }

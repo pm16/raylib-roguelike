@@ -29,7 +29,7 @@ Game::Game() {
     scale = std::min((float)GetScreenWidth()/canvasWidth, (float)GetScreenHeight()/canvasHeight);
     
           
-     dungeon.generate(std::rand() % 100 + 2);
+     dungeon.generate(std::rand() % 100 + 10);
      player = Entity(40 / 2, 25 / 2, "☺", GREEN);
     for (MapTile tile : dungeon.getMap()) {
         if (tile.tile == "<") {
