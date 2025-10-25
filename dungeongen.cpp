@@ -22,30 +22,44 @@ namespace {
 
 void Dungeon::generate(int maxFeatures) {
    
-    // place the first room in the center
-    if (!makeRoom(_width / 2, _height / 2, static_cast<Direction>(randomInt(4), true))) {
-        std::cout << "Unable to place the first room.\n";
-        return;
-    }
-
-    // we already placed 1 feature (the first room)
-    for (int i = 1; i < maxFeatures; i++) {
-        if (!createFeature()) {
-            std::cout << "Unable to place more features (placed " << i << ").\n";
-            break;
+    bool allFeaturesPlaced = false;
+    while (!allFeaturesPlaced) {
+        // place the first room in the center
+        bool firstRoomPlaced = false;
+        if (!makeRoom(_width / 2, _height / 2, static_cast<Direction>(randomInt(4), true))) {
+            std::cout << "Unable to place the first room.\n";            
         }
-    }
+        else {
+            firstRoomPlaced = true;
+        }
 
-    if (!placeObject("UpStairs")) {
-        std::cout << "Unable to place up stairs.\n";
-        return;
-    }
+        // we already placed 1 feature (the first room)
+        for (int i = 1; i < maxFeatures; i++) {
+            if (!createFeature()) {
+                std::cout << "Unable to place more features (placed " << i << ").\n";
+                break;
+            }
+        }
+        bool upStairsPlaced = false;
+        if (!placeObject("UpStairs")) {
+            std::cout << "Unable to place up stairs.\n";
+        }
+        else {
+            upStairsPlaced = true;
+        }
+        bool downStairsPlaced = false;
+        if (!placeObject("DownStairs")) {
+            std::cout << "Unable to place down stairs.\n";
+        }
+        else {
+            downStairsPlaced = true;
+        }
 
-    if (!placeObject("DownStairs")) {
-        std::cout << "Unable to place down stairs.\n";
-        return;
-    }
+        if (firstRoomPlaced && upStairsPlaced && downStairsPlaced) {
+            allFeaturesPlaced = true;
+        }
 
+    }
     /*for (MapTile tile : _tiles) {
         if (tile.id == "Unused") {
             tile = ".";
