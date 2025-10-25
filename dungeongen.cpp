@@ -79,8 +79,8 @@ void Dungeon::print() {
     }
 }
 
-std::vector<MapTile> Dungeon::getMap(){
-    std::vector<MapTile> mapTiles;
+std::vector<Entity> Dungeon::getMap(){
+    std::vector<Entity> mapTiles;
     for (int y = 0; y < _height; y++) {
         for (int x = 0; x < _width; x++) {
             mapTiles.push_back(getTile(x, y));
@@ -90,15 +90,15 @@ std::vector<MapTile> Dungeon::getMap(){
 }
     
 
-MapTile Dungeon::getTile(int x, int y) const {
+Entity Dungeon::getTile(int x, int y) const {
     if (x < 0 || y < 0 || x >= _width || y >= _height) {
-        return MapTile{"Unused", Vector2{(float)x, (float)y}, RAYWHITE};
+        return Entity{"Unused", Vector2{(float)x, (float)y}, RAYWHITE};
     }
     return _tiles[x + y * _width];
 }
 
 void Dungeon::setTile(int x, int y, const char* tile) {
-    _tiles[x + y * _width] = MapTile{tile, Vector2{(float)x, (float)y}, RAYWHITE};
+    _tiles[x + y * _width] = Entity{tile, Vector2{(float)x, (float)y}, RAYWHITE};
 }
 
 bool Dungeon::createFeature() {
@@ -329,6 +329,6 @@ bool Dungeon::makeRoom(int x, int y, Direction dir, bool firstRoom) {
     return false;
  }
 
- MapTile Dungeon::getTile(Vector2 position) {
+ Entity Dungeon::getTile(Vector2 position) {
     return getTile(position.x, position.y);
  }

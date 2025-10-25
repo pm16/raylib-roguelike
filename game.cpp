@@ -30,11 +30,10 @@ Game::Game() {
     
           
      dungeon.generate(std::rand() % 100 + 10);
-     player = Entity(40 / 2, 25 / 2, "☺", GREEN);
-    for (MapTile tile : dungeon.getMap()) {
+     player = Entity("SmileyFace", Vector2{0,0}, GREEN);
+    for (Entity tile : dungeon.getMap()) {
         if (tile.tile == "<") {
-            player.x = tile.position.x;
-            player.y = tile.position.y;
+            player.position = tile.position;
         }
     }
      
@@ -54,8 +53,8 @@ void Game::Draw() {
         ClearBackground(BLACK);  // Clear render texture background color
 
             
-        for (MapTile tile : dungeon.getMap()) {
-        DrawTile(tile.position.x, tile.position.y, tile.tile.c_str(), tile.color);
+        for (Entity tile : dungeon.getMap()) {
+        DrawTile(tile);
     }
 
         DrawTile(player); 
@@ -76,27 +75,26 @@ void Game::Draw() {
 
 void Game::HandleInput() {
     
-    Vector2 previous = {(float)player.x, (float)player.y};
+    Vector2 previous = player.position;
 
     if (IsKeyPressed(KEY_UP)) {
-        player.y -= 1;        
+        player.position.y -= 1;        
     }
 
     if (IsKeyPressed(KEY_DOWN)) {
-        player.y += 1;
+        player.position.y += 1;
     }
 
    if (IsKeyPressed(KEY_LEFT)) {
-        player.x -= 1;
+        player.position.x -= 1;
     }
 
     if (IsKeyPressed(KEY_RIGHT)) {
-        player.x += 1;
+        player.position.x += 1;
     }
 
-    if (!dungeon.getTile(Vector2{(float)player.x, (float)player.y}).passable) {
-        player.x = previous.x;
-        player.y = previous.y;
+    if (!dungeon.getTile(player.position).passable) {
+        player.position = previous;
     }  
 }
 
@@ -108,7 +106,7 @@ void Game::DrawTile(int x, int y, std::string tile, Color color) {
 
 void Game::DrawTile(Entity entity) {
 DrawTextEx(font, entity.tile.c_str(), 
-(Vector2){(float)entity.x * TILE_DIMENSIONS.x, (float)entity.y * TILE_DIMENSIONS.y}, 
+(Vector2){(float)entity.position.x * TILE_DIMENSIONS.x, (float)entity.position.y * TILE_DIMENSIONS.y}, 
 font_size, 0, entity.color);
 }
 
