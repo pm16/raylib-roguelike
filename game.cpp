@@ -77,11 +77,11 @@ void Game::Draw() {
 
 void Game::HandleInput() {
     switch (state) {
-        case Movement :
+        case State::Movement :
         InputMovement();
         break;
 
-        case Open :
+        case State::Open :
         InputOpen();
         break;
     }    
@@ -118,37 +118,30 @@ void Game::InputMovement() {
 }
 
 void Game::InputOpen() {
-  
+    bool opened = false;
+    
     if (IsKeyPressed(KEY_UP)) {
-        if (dungeon.getTile(Vector2Add(player.position, Vector2{0, -1})).id == "ClosedDoor") {
-            std::cout << "Door is now open.\n";
-            dungeon.openDoor(Vector2Add(player.position, Vector2{0, -1}));
-        }
+        opened = dungeon.openDoor(Vector2Add(player.position, Vector2{0, -1}));                
         state = State::Movement;        
     }
 
     if (IsKeyPressed(KEY_DOWN)) {
-        if (dungeon.getTile(Vector2Add(player.position, Vector2{0, +1})).id == "ClosedDoor") {
-            std::cout << "Door is now open.\n";
-            dungeon.openDoor(Vector2Add(player.position, Vector2{0, +1}));
-        }
+        opened = dungeon.openDoor(Vector2Add(player.position, Vector2{0, +1}));
         state = State::Movement;        
     }
 
    if (IsKeyPressed(KEY_LEFT)) {
-        if (dungeon.getTile(Vector2Add(player.position, Vector2{-1, 0})).id == "ClosedDoor") {
-            std::cout << "Door is now open.\n";
-            dungeon.openDoor(Vector2Add(player.position, Vector2{-1, 0}));
-        }
+        opened = dungeon.openDoor(Vector2Add(player.position, Vector2{-1, 0}));
         state = State::Movement;        
     }
 
     if (IsKeyPressed(KEY_RIGHT)) {
-        if (dungeon.getTile(Vector2Add(player.position, Vector2{+1, 0})).id == "ClosedDoor") {
-            std::cout << "Door is now open.\n";
-            dungeon.openDoor(Vector2Add(player.position, Vector2{+1, 0}));
-        }
+        opened = dungeon.openDoor(Vector2Add(player.position, Vector2{+1, 0}));
         state = State::Movement;        
+    }
+
+    if (opened) {
+        std::cout << "Door is now open.\n";
     }
     
 }

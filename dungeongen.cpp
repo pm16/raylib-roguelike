@@ -333,6 +333,11 @@ bool Dungeon::makeRoom(int x, int y, Direction dir, bool firstRoom) {
     return getTile(position.x, position.y);
  }
 
- void Dungeon::openDoor(Vector2 position) {
-    setTile(position.x, position.y, "OpenDoor");
+ bool Dungeon::openDoor(Vector2 position) {
+    bool openedDoor = false;
+    if (getTile(position).id == "ClosedDoor") {
+        setTile(position.x, position.y, "OpenDoor");
+        openedDoor = true;        
+    }
+    return openedDoor;
  }

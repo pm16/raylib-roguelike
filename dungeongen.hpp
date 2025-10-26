@@ -40,7 +40,7 @@ class Dungeon {
     void print();
     std::vector<MapTile> getMap();
     MapTile getTile(Vector2 position);
-    void openDoor(Vector2 position);
+    bool openDoor(Vector2 position);
 
     private:
     MapTile getTile(int x, int y) const;
