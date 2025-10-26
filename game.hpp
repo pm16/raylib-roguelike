@@ -30,7 +30,7 @@ class Game {
 
     enum State {
         Movement,
-        Open
+        DefaultInteract
     };
 
     int state;
@@ -42,7 +42,7 @@ class Game {
     void HandleInput();
     void DrawTile(int x, int y , std::string tile, Color color);
     void DrawTile(MapTile entity);
-    void InputOpen();
+    void InputDefaultInteract();
     void InputMovement();
     ~Game();
 };

@@ -81,8 +81,8 @@ void Game::HandleInput() {
         InputMovement();
         break;
 
-        case State::Open :
-        InputOpen();
+        case State::DefaultInteract :
+        InputDefaultInteract();
         break;
     }    
 }
@@ -113,37 +113,39 @@ void Game::InputMovement() {
     if (IsKeyPressed(KEY_Z)) {        
           std::cout << "Which direction?\n";
         // Pause and wait for input.    
-        state = State::Open;
+        state = State::DefaultInteract;
     }
 }
 
-void Game::InputOpen() {
-    bool opened = false;
-    
+void Game::InputDefaultInteract() {
+    bool keypressed = false;
+    Vector2 interactDirection = Vector2{0,0};
+
     if (IsKeyPressed(KEY_UP)) {
-        opened = dungeon.openDoor(Vector2Add(player.position, Vector2{0, -1}));                
-        state = State::Movement;        
+        interactDirection = Vector2Add(player.position, Vector2{0, -1}); 
+        keypressed = true;        
     }
 
     if (IsKeyPressed(KEY_DOWN)) {
-        opened = dungeon.openDoor(Vector2Add(player.position, Vector2{0, +1}));
-        state = State::Movement;        
+        interactDirection = Vector2Add(player.position, Vector2{0, +1});
+        keypressed = true;        
     }
 
    if (IsKeyPressed(KEY_LEFT)) {
-        opened = dungeon.openDoor(Vector2Add(player.position, Vector2{-1, 0}));
-        state = State::Movement;        
+        interactDirection = Vector2Add(player.position, Vector2{-1, 0});
+        keypressed = true;        
     }
 
     if (IsKeyPressed(KEY_RIGHT)) {
-        opened = dungeon.openDoor(Vector2Add(player.position, Vector2{+1, 0}));
-        state = State::Movement;        
+        interactDirection = Vector2Add(player.position, Vector2{+1, 0});
+        keypressed = true;        
     }
 
-    if (opened) {
-        std::cout << "Door is now open.\n";
+    if (keypressed == true) {
+        dungeon.defaultInteract(interactDirection);
+        state = State::Movement;
     }
-    
+
 }
 
 void Game::DrawTile(int x, int y, std::string tile, Color color) {
