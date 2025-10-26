@@ -332,3 +332,7 @@ bool Dungeon::makeRoom(int x, int y, Direction dir, bool firstRoom) {
  MapTile Dungeon::getTile(Vector2 position) {
     return getTile(position.x, position.y);
  }
+
+ void Dungeon::openDoor(Vector2 position) {
+    setTile(position.x, position.y, "OpenDoor");
+ }

@@ -36,6 +36,8 @@ Game::Game() {
             player.position = tile.position;
         }
     }
+
+    state = State::Movement;
      
 }
 
@@ -74,7 +76,18 @@ void Game::Draw() {
 }
 
 void Game::HandleInput() {
-    
+    switch (state) {
+        case Movement :
+        InputMovement();
+        break;
+
+        case Open :
+        InputOpen();
+        break;
+    }    
+}
+
+void Game::InputMovement() {
     Vector2 previous = player.position;
 
     if (IsKeyPressed(KEY_UP)) {
@@ -96,6 +109,48 @@ void Game::HandleInput() {
     if (!dungeon.getTile(player.position).passable) {
         player.position = previous;
     }  
+
+    if (IsKeyPressed(KEY_Z)) {        
+          std::cout << "Which direction?\n";
+        // Pause and wait for input.    
+        state = State::Open;
+    }
+}
+
+void Game::InputOpen() {
+  
+    if (IsKeyPressed(KEY_UP)) {
+        if (dungeon.getTile(Vector2Add(player.position, Vector2{0, -1})).id == "ClosedDoor") {
+            std::cout << "Door is now open.\n";
+            dungeon.openDoor(Vector2Add(player.position, Vector2{0, -1}));
+        }
+        state = State::Movement;        
+    }
+
+    if (IsKeyPressed(KEY_DOWN)) {
+        if (dungeon.getTile(Vector2Add(player.position, Vector2{0, +1})).id == "ClosedDoor") {
+            std::cout << "Door is now open.\n";
+            dungeon.openDoor(Vector2Add(player.position, Vector2{0, +1}));
+        }
+        state = State::Movement;        
+    }
+
+   if (IsKeyPressed(KEY_LEFT)) {
+        if (dungeon.getTile(Vector2Add(player.position, Vector2{-1, 0})).id == "ClosedDoor") {
+            std::cout << "Door is now open.\n";
+            dungeon.openDoor(Vector2Add(player.position, Vector2{-1, 0}));
+        }
+        state = State::Movement;        
+    }
+
+    if (IsKeyPressed(KEY_RIGHT)) {
+        if (dungeon.getTile(Vector2Add(player.position, Vector2{+1, 0})).id == "ClosedDoor") {
+            std::cout << "Door is now open.\n";
+            dungeon.openDoor(Vector2Add(player.position, Vector2{+1, 0}));
+        }
+        state = State::Movement;        
+    }
+    
 }
 
 void Game::DrawTile(int x, int y, std::string tile, Color color) {

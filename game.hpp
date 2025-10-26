@@ -28,6 +28,13 @@ class Game {
     MapTile player;
     Dungeon dungeon = Dungeon(80,50);
 
+    enum State {
+        Movement,
+        Open
+    };
+
+    int state;
+
     Game();
     void Initialize();
     void Update();
@@ -35,5 +42,7 @@ class Game {
     void HandleInput();
     void DrawTile(int x, int y , std::string tile, Color color);
     void DrawTile(MapTile entity);
+    void InputOpen();
+    void InputMovement();
     ~Game();
 };
