@@ -115,6 +115,11 @@ void Game::InputMovement() {
         // Pause and wait for input.    
         state = State::DefaultInteract;
     }
+
+    if (IsKeyPressed(KEY_X)) {
+        std::cout << "Entered Menu.\n";
+        // TODO
+    }
 }
 
 void Game::InputDefaultInteract() {
@@ -141,10 +146,22 @@ void Game::InputDefaultInteract() {
         keypressed = true;        
     }
 
+    if (IsKeyPressed(KEY_Z)) {
+        interactDirection = player.position;
+        keypressed = true;
+    }
+
+    if (IsKeyPressed(KEY_X)) {
+        std::cout << "Cancelled.\n";
+        state = State::Movement;
+    }
+
     if (keypressed == true) {
         dungeon.defaultInteract(interactDirection);
         state = State::Movement;
     }
+
+
 
 }
 

@@ -10,6 +10,10 @@ Using [Raylib](https://github.com/raysan5/raylib) to create a rogue-like game.
 04. ```make game```
 05. ```./build/game```
 
+## Keys
+```Arrows``` Move in a direction or pick a direction.
+```Z``` Perform default action
+
 ## TODO
 - [ ] Make a better Makefile, need to handle building on other systems and building on windows
 
@@ -33,6 +37,13 @@ Using [Raylib](https://github.com/raysan5/raylib) to create a rogue-like game.
     - [ ] Monsters
     - [ ] Items
     - [ ] Interactable tiles
+    - [ ] AI for NPCs and Monsters
+        - [ ] Include in-fighting and hunting for hungry monsters/NPCs
+- [ ] Create Actor class (contains an Entity)
+    - [ ] Stats
+    - [ ] Abilities
+    - [ ] Classes
+    - [ ] Species
 - [ ] Create state machine
     - [ ] Move input handling to its associated state
     - [ ] Move draing to its associated state
