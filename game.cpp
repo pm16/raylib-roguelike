@@ -127,7 +127,7 @@ void Game::InputDefaultInteract() {
     }
 
     if (IsKeyPressed(KEY_DOWN)) {
-        interactDirection = Vector2Add(player.position, Vector2{0, +1});
+        interactDirection = Vector2Add(player.position, Vector2{0, 1});
         keypressed = true;        
     }
 
@@ -137,7 +137,7 @@ void Game::InputDefaultInteract() {
     }
 
     if (IsKeyPressed(KEY_RIGHT)) {
-        interactDirection = Vector2Add(player.position, Vector2{+1, 0});
+        interactDirection = Vector2Add(player.position, Vector2{1, 0});
         keypressed = true;        
     }
 

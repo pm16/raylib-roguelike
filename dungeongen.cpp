@@ -355,4 +355,10 @@ bool Dungeon::makeRoom(int x, int y, Direction dir, bool firstRoom) {
     if (tileID == "ClosedDoor"){
         openDoor(position);
     }
+    if (tileID == "UpStairs") {
+        // TODO
+    }
+    if (tileID == "DownStairs") {
+        // TODO
+    }
  }
