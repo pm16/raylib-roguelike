@@ -1,5 +1,29 @@
 #include "load_font.hpp"
 
+Font load_font_cp437(Image fontImage, int base_size) {
+    Texture2D fontTexture = LoadTextureFromImage(fontImage);
+    Font cp437Font;
+    cp437Font.texture = fontTexture;
+    cp437Font.baseSize = base_size; 
+    cp437Font.glyphCount = 256; // For CP437 16X16 sheet used.
+    cp437Font.recs = (Rectangle*)MemAlloc(cp437Font.glyphCount * sizeof(Rectangle));
+    cp437Font.glyphs = (GlyphInfo*)MemAlloc(cp437Font.glyphCount * sizeof(GlyphInfo));
+    cp437Font.glyphPadding = 0;
+
+    for (int i = 0; i < cp437Font.glyphCount; i++) {
+        cp437Font.glyphs[i].value = convert_to_unicode(i);
+        cp437Font.glyphs[i].offsetX = 0;
+        cp437Font.glyphs[i].offsetY = 0;
+        cp437Font.glyphs[i].advanceX = base_size;
+        
+        cp437Font.recs[i].x = (i % 16) * base_size;
+        cp437Font.recs[i].y = (i / 16) * base_size;
+        cp437Font.recs[i].width = base_size;
+        cp437Font.recs[i].height = base_size;
+    }
+    return cp437Font;
+} 
+
 Font load_font_cp437(std::string font_file, int base_size) {
     Texture2D fontTexture = LoadTexture(font_file.c_str());
     Font cp437Font;

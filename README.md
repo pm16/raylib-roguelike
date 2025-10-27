@@ -5,10 +5,11 @@ Using [Raylib](https://github.com/raysan5/raylib) to create a rogue-like game.
 
 ## Build instructions (Linux)
 01. Follow the [Raylib](https://github.com/raysan5/raylib) build instructions for your distro to install the dependencies.
-02. Clone this repo and enter its directory.
-03. ```mkdir build```
-04. ```make game```
-05. ```./build/game```
+02. Follow instructions for your distro to install sqlite libraries, in fedora its ```sudo dnf install sqlite-devel```.
+03. Clone this repo and enter its directory.
+04. ```mkdir build```
+05. ```make game```
+06. ```./build/game```
 
 ## Keys
 ```Arrows``` Move in a direction or pick a direction.
@@ -53,7 +54,6 @@ Using [Raylib](https://github.com/raysan5/raylib) to create a rogue-like game.
     Total screen size is 80x25 tiles
     Maybe set the view port to 40x20 tiles
 - [ ] Add settings
-    - [ ] Store settings in a .json file?
     - [ ] Custom tilesets or fonts?
 - [ ] Add log to the UI
 - [ ] Add a menu system
@@ -72,3 +72,9 @@ Using [Raylib](https://github.com/raysan5/raylib) to create a rogue-like game.
 - [ ] Enable resizeable window
     - [X] Minimum size needs to be set to tilesize * width and height
     - [ ] calculate new scale when the screen is resized.
+
+- [ ] Move all persistant data to SQLite.
+    - [ ] Store font in SQLite.
+    - [ ] Store settings.
+    - [ ] Store saves and gravestones.
+    - [ ] Store game data - classes, species, abilities, items, static maps, etc ...

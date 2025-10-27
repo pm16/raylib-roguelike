@@ -1,6 +1,7 @@
 #include "game.hpp"
 #include <algorithm>
 #include "include/raymath.h"
+#include "include/sqlite.hpp"
 
 Game::Game() {
     /* Initialize raylib*/
@@ -15,9 +16,29 @@ Game::Game() {
     
     tilesWide = 80;
     tilesHigh = 50;
+    
+    // Initialize sqlite
+    sqlite::Connection connection("game.db");
+    
+    sqlite::Result result = connection.Query("SELECT * FROM Fonts WHERE ID=1;");
+    std::cout << "db opened.\n";
+    std::cout << result.ColumnCount() << "\n";
+    int fontBaseSize = 0;
+    Image fontTexture;
+    if (result.Next()) {
+        std::cout << "Size: " << result.Get<sqlite::Blob>(3).GetSize() << "\n";
+        fontTexture = LoadImageFromMemory(".png", result.Get<sqlite::Blob>(3).GetData(), result.Get<sqlite::Blob>(3).GetSize());
+        fontBaseSize = result.Get<int>(2);    
+    }
+    
+    //connection.Close();
+    //std::cout << "db closed.\n";
     // Load font
     font_size = 24;
-    font = load_font_cp437("assets/Alloy_curses_12x12.png", 12);
+    //font = load_font_cp437("assets/Alloy_curses_12x12.png", 12);
+    font = load_font_cp437(fontTexture, fontBaseSize);
+    UnloadImage(fontTexture);
+
     TILE_DIMENSIONS = MeasureTextEx(font, "X", font_size, 0);
     canvasWidth = tilesWide * TILE_DIMENSIONS.x;
     canvasHeight = tilesHigh * TILE_DIMENSIONS.y;

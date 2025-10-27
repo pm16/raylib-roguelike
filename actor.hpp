@@ -12,6 +12,7 @@ class Species {
     int baseInt;
     int baseWis;
     int baseCha;
+    
     enum Size {
         xSmall,
         Small,
@@ -40,12 +41,11 @@ class Specialty {
 };
 
 class Ability {
+    public:
     int minValue, maxValue;
     std::string name;
     std::string description;
-    int onAttack();
-    int onUse();
-    int onTarget();
+    //int onUse();
 };
 
 class Actor {
@@ -62,4 +62,5 @@ class Actor {
     int health, maxHealth;
     int mana, maxMana;
     std::vector<std::string> inventory; 
+    
 };
