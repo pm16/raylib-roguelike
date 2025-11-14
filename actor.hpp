@@ -1,5 +1,5 @@
 #pragma once
-#include "entity.hpp"
+#include "mapTile.hpp"
 #include <vector>
 
 class Species {
@@ -12,7 +12,7 @@ class Species {
     int baseInt;
     int baseWis;
     int baseCha;
-    
+
     enum Size {
         xSmall,
         Small,
@@ -61,6 +61,6 @@ class Actor {
     int charisma;
     int health, maxHealth;
     int mana, maxMana;
-    std::vector<std::string> inventory; 
-    
+    std::vector<std::string> inventory;
+
 };

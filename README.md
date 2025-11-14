@@ -78,3 +78,6 @@ Using [Raylib](https://github.com/raysan5/raylib) to create a rogue-like game.
     - [ ] Store settings.
     - [ ] Store saves and gravestones.
     - [ ] Store game data - classes, species, abilities, items, static maps, etc ...
+    
+- [ ] Convert to an entity component system
+- [ ] Move font loader to a class or namespace?

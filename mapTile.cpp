@@ -1,11 +1,11 @@
-#include "entity.hpp"
+#include "mapTile.hpp"
 
 MapTile::MapTile(const char* id, Vector2 position, Color color) {
     this->id = id;
     this->tile = Tile[this->id];
     this->position = position;
     this->color = color;
-    setFlags();              
+    setFlags();
 }
 
 MapTile::MapTile() {
@@ -37,26 +37,26 @@ void MapTile::setFlags() {
     }
     else if (this->id == "Wall") {
         this->passable = false;
-        this->opaque = true;            
+        this->opaque = true;
     }
     else if (this->id == "ClosedDoor") {
         this->passable = false;
-        this->opaque = true;            
+        this->opaque = true;
     }
     else if (this->id == "OpenDoor") {
         this->passable = true;
-        this->opaque = false;            
+        this->opaque = false;
     }
     else if (this->id == "UpStairs") {
         this->passable = true;
-        this->opaque = false;            
+        this->opaque = false;
     }
     else if (this->id == "DownStairs") {
         this->passable = true;
-        this->opaque = false;            
+        this->opaque = false;
     }
     else if (this->id == "SmileyFace") {
         this->passable = false;
-        this->opaque = true;            
+        this->opaque = true;
     }
 }

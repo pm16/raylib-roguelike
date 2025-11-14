@@ -5,7 +5,7 @@
 #include <iostream>
 #include <string>
 #include <map>
-#include "entity.hpp"
+#include "mapTile.hpp"
 
 struct Rect {
     int x, y;
@@ -18,7 +18,7 @@ class Dungeon {
 	std::vector<MapTile> _tiles;
 	std::vector<Rect> _rooms; // rooms for place stairs or monsters
 	std::vector<Rect> _exits; // 4 sides of rooms or corridors
-    
+
     public:
     enum Direction {
         North,
@@ -27,13 +27,13 @@ class Dungeon {
 		East,
 		DirectionCount
     };
-   
-    Dungeon(int width, int height): 
+
+    Dungeon(int width, int height):
         _width(width)
 		, _height(height)
 		, _tiles(width * height, MapTile())
 		, _rooms()
-		, _exits() 
+		, _exits()
 	{}
 
     void generate(int maxFeatures);
