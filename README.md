@@ -33,7 +33,7 @@ Using [Raylib](https://github.com/raysan5/raylib) to create a rogue-like game.
         - [ ] Use a button for default interaction with a direction as the second input.
         - [ ] Second button will bring up a context menu, which will bring up another context menu in a menu.
             - [ ] First button will select the default action for the selection in a menu like inventory (i.e., if over a potion then quaff).
-- [X] Create entity class
+- [ ] Create thing class
     - [ ] NPCs
     - [ ] Monsters
     - [ ] Items
