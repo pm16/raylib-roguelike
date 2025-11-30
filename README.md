@@ -81,3 +81,6 @@ Using [Raylib](https://github.com/raysan5/raylib) to create a rogue-like game.
     
 - [ ] Convert to an entity component system
 - [ ] Move font loader to a class or namespace?
+- [ ] TUI style system to display menus, textboxes, etc...
+
+- Maybe this project is actually a GUI library that imitates a codepage 437 TUI?

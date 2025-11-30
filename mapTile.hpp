@@ -30,7 +30,13 @@ class MapTile {
         {"OpenDoor", "-"},
         {"UpStairs","<"},
         {"DownStairs", ">"},
-        {"SmileyFace", "☺"}
+        {"SmileyFace", "☺"},
+        {"borderTopLeft", "┌"},
+        {"borderTopRight", "┐"},
+        {"borderBottomLeft", "└"},
+        {"borderBottomRight", "┘"},
+        {"borderHorizontal" , "─"},
+        {"borderVertical", "│"}
     };
     
 };
