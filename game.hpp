@@ -3,6 +3,7 @@
 #include <string>
 #include "load_font.hpp"
 #include "dungeongen.hpp"
+#include "frame.hpp"
 
 class Game {
     public:
@@ -22,11 +23,13 @@ class Game {
     Font font;
 
     Vector2 TILE_DIMENSIONS;
-    
+
     std::string title;
 
     MapTile player;
     Dungeon dungeon = Dungeon(80,50);
+
+    Frame frame;
 
     enum State {
         Movement,

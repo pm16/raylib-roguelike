@@ -4,10 +4,10 @@
 #include <string>
 #include <vector>
 
-class Window {
-    
+class Frame {
+
     //TODO: Scrollbar and up/down arrows, paging left and right arrows too.
-    
+
     public:
-    std::vector<MapTile> DrawWindow(int x, int y, int width, int height);
+    std::vector<MapTile> DrawFrame(int x, int y, int width, int height);
 };

@@ -5,7 +5,7 @@
 
 Game::Game() {
     /* Initialize raylib*/
-    
+
     windowWidth = 1280;
     windowHeight = 720;
 
@@ -13,13 +13,13 @@ Game::Game() {
     //SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_VSYNC_HINT);
     title = "Roguelike game";
     InitWindow(windowWidth, windowHeight, title.c_str());
-    
+
     tilesWide = 80;
     tilesHigh = 50;
-    
+
     // Initialize sqlite
     sqlite::Connection connection("game.db");
-    
+
     sqlite::Result result = connection.Query("SELECT * FROM Fonts WHERE ID=1;");
     std::cout << "db opened.\n";
     std::cout << result.ColumnCount() << "\n";
@@ -28,9 +28,9 @@ Game::Game() {
     if (result.Next()) {
         std::cout << "Size: " << result.Get<sqlite::Blob>(3).GetSize() << "\n";
         fontTexture = LoadImageFromMemory(".png", result.Get<sqlite::Blob>(3).GetData(), result.Get<sqlite::Blob>(3).GetSize());
-        fontBaseSize = result.Get<int>(2);    
+        fontBaseSize = result.Get<int>(2);
     }
-    
+
     //connection.Close();
     //std::cout << "db closed.\n";
     // Load font
@@ -48,8 +48,8 @@ Game::Game() {
     SetTextureFilter(canvas.texture, TEXTURE_FILTER_POINT);  // Texture scale filter to use
     SetTargetFPS(60);                   // Set our game to run at 60 frames-per-second
     scale = std::min((float)GetScreenWidth()/canvasWidth, (float)GetScreenHeight()/canvasHeight);
-    
-          
+
+
      dungeon.generate(std::rand() % 100 + 10);
      player = MapTile("SmileyFace", Vector2{0,0}, GREEN);
     for (MapTile tile : dungeon.getMap()) {
@@ -59,12 +59,12 @@ Game::Game() {
     }
 
     state = State::Movement;
-     
+
 }
 
 void Game::Initialize() {
-    
-    
+
+
 }
 
 void Game::Update() {
@@ -75,15 +75,18 @@ void Game::Draw() {
     BeginTextureMode(canvas);
         ClearBackground(BLACK);  // Clear render texture background color
 
-            
+
         for (MapTile tile : dungeon.getMap()) {
         DrawTile(tile);
     }
+        for (MapTile tile : frame.DrawFrame(0, 0, this->tilesWide, this->tilesHigh)) {
+            DrawTile(tile);
+        }
 
-        DrawTile(player); 
-            
+        DrawTile(player);
+
     EndTextureMode();
-        
+
     BeginDrawing();
         ClearBackground(RAYWHITE);     // Clear screen background
 
@@ -92,8 +95,8 @@ void Game::Draw() {
                         (Rectangle){ (GetScreenWidth() - ((float)canvasWidth*scale))*0.5f, (GetScreenHeight() - ((float)canvasHeight*scale))*0.5f,
                         (float)canvasWidth*scale, (float)canvasHeight*scale }, (Vector2){ 0, 0 }, 0.0f, WHITE);
     EndDrawing();
-           
-    
+
+
 }
 
 void Game::HandleInput() {
@@ -105,14 +108,14 @@ void Game::HandleInput() {
         case State::DefaultInteract :
         InputDefaultInteract();
         break;
-    }    
+    }
 }
 
 void Game::InputMovement() {
     Vector2 previous = player.position;
 
     if (IsKeyPressed(KEY_UP)) {
-        player.position.y -= 1;        
+        player.position.y -= 1;
     }
 
     if (IsKeyPressed(KEY_DOWN)) {
@@ -129,11 +132,11 @@ void Game::InputMovement() {
 
     if (!dungeon.getTile(player.position).passable) {
         player.position = previous;
-    }  
+    }
 
-    if (IsKeyPressed(KEY_Z)) {        
+    if (IsKeyPressed(KEY_Z)) {
           std::cout << "Which direction?\n";
-        // Pause and wait for input.    
+        // Pause and wait for input.
         state = State::DefaultInteract;
     }
 
@@ -148,23 +151,23 @@ void Game::InputDefaultInteract() {
     Vector2 interactDirection = Vector2{0,0};
 
     if (IsKeyPressed(KEY_UP)) {
-        interactDirection = Vector2Add(player.position, Vector2{0, -1}); 
-        keypressed = true;        
+        interactDirection = Vector2Add(player.position, Vector2{0, -1});
+        keypressed = true;
     }
 
     if (IsKeyPressed(KEY_DOWN)) {
         interactDirection = Vector2Add(player.position, Vector2{0, 1});
-        keypressed = true;        
+        keypressed = true;
     }
 
    if (IsKeyPressed(KEY_LEFT)) {
         interactDirection = Vector2Add(player.position, Vector2{-1, 0});
-        keypressed = true;        
+        keypressed = true;
     }
 
     if (IsKeyPressed(KEY_RIGHT)) {
         interactDirection = Vector2Add(player.position, Vector2{1, 0});
-        keypressed = true;        
+        keypressed = true;
     }
 
     if (IsKeyPressed(KEY_Z)) {
@@ -187,19 +190,19 @@ void Game::InputDefaultInteract() {
 }
 
 void Game::DrawTile(int x, int y, std::string tile, Color color) {
-    DrawTextEx(font, tile.c_str(), 
-    (Vector2){(float)x * TILE_DIMENSIONS.x, (float)y * TILE_DIMENSIONS.y}, 
+    DrawTextEx(font, tile.c_str(),
+    (Vector2){(float)x * TILE_DIMENSIONS.x, (float)y * TILE_DIMENSIONS.y},
     font_size, 0, color);
 }
 
 void Game::DrawTile(MapTile entity) {
-DrawTextEx(font, entity.tile.c_str(), 
-(Vector2){(float)entity.position.x * TILE_DIMENSIONS.x, (float)entity.position.y * TILE_DIMENSIONS.y}, 
+DrawTextEx(font, entity.tile.c_str(),
+(Vector2){(float)entity.position.x * TILE_DIMENSIONS.x, (float)entity.position.y * TILE_DIMENSIONS.y},
 font_size, 0, entity.color);
 }
 
 Game::~Game() {
     UnloadFont(font);
     UnloadRenderTexture(canvas);
-    CloseWindow();    
+    CloseWindow();
 }
